@@ -1,0 +1,16 @@
+# Render (opcional): publica o backend (site + assistente de IA) como um único serviço.
+services:
+  - type: web
+    name: cyro-bus
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false          # cole a chave no painel do Render (nunca no código)
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
+      - key: GROQ_FALLBACK_MODELS
+        value: openai/gpt-oss-20b,llama-3.1-8b-instant
